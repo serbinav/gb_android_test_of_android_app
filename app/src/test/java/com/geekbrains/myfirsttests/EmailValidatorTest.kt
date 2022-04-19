@@ -40,4 +40,49 @@ class EmailValidatorTest {
     fun emailValidator_NullEmail_ReturnsFalse() {
         assertFalse(EmailValidator.isValidEmail(null))
     }
+
+    @Test
+    fun emailValidator_BigSizeLeft_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("namenamenamenamenamenamenamenamenamenamenamen" +
+                "amenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamen" +
+                "amenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamename" +
+                "namenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamena" +
+                "menamenamenamenamenamenamename@email.com"))
+    }
+
+    @Test
+    fun emailValidator_BigSizeRight_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@email.americanexpressamericanexpressameri" +
+                "canexpressamericanexpressamericanexpress"))
+    }
+
+    @Test
+    fun emailValidator_NotAt_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("nameemail.com"))
+    }
+
+    @Test
+    fun emailValidator_NotSpaceLeft_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("na me@email.com"))
+    }
+
+    @Test
+    fun emailValidator_NotSpaceRight_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@e mail.com"))
+    }
+
+    @Test
+    fun emailValidator_ShortNotAt_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name"))
+    }
+
+    @Test
+    fun emailValidator_NonPrintChar_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("\"test\rblah\"@example.com"))
+    }
+
+    @Test
+    fun emailValidator_ManyQuotes_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("\"\"test\"\"blah\"\"@example.com"))
+    }
 }
